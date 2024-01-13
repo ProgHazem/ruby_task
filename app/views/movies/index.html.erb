@@ -1,0 +1,38 @@
+<!-- app/views/movies/index.html.erb -->
+<h1>Movies</h1>
+
+<%= form_tag movies_path, method: :get do %>
+  <%= text_field_tag :actor_search, params[:actor_search], placeholder: 'Search by Actor' %>
+  <%= submit_tag 'Search' %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Year</th>
+      <th>Director</th>
+      <th>Actor</th>
+      <th>Filming Location</th>
+      <th>Country</th>
+      <th>Average Stars</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @movies.each do |movie| %>
+      <tr>
+        <td><%= movie.id %></td>
+        <td><%= movie.title %></td>
+        <td><%= movie.description %></td>
+        <td><%= movie.year %></td>
+        <td><%= movie.director %></td>
+        <td><%= movie.actor %></td>
+        <td><%= movie.filming_location %></td>
+        <td><%= movie.country %></td>
+        <td><%= movie.reviews.average(:stars).to_f.round(2) if movie.reviews.any? %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
